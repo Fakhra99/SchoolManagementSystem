@@ -1,10 +1,10 @@
 import React from "react";
-import StudentRegistration from "./components/StudentRegistration";
+// import components here
 
 function App() {
   return (
     <>
-      <StudentRegistration/>
+      {/* render components here */}
     </>
   );
 }
