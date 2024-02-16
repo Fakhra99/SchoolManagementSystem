@@ -1,10 +1,12 @@
 import React from "react";
+import AdminSignupForm from "./Components/signup/AdminSignup";
+
 // import components here
 
 function App() {
   return (
     <>
-      {/* render components here */}
+      <AdminSignupForm />
     </>
   );
 }
