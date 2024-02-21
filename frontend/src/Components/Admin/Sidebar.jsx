@@ -1,15 +1,53 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from "react";
 import { BsArrowLeft } from "react-icons/bs";
-import { TfiDashboard } from "react-icons/tfi";
 import { PiPerson } from "react-icons/pi";
 import { IoBookOutline } from "react-icons/io5";
 import { TfiBag } from "react-icons/tfi";
 import { MdOutlineMoneyOffCsred } from "react-icons/md";
 import { HiOutlineDocumentChartBar } from "react-icons/hi2";
 
+// Reusable HoverMenu component
+const HoverMenu = ({ icon, title, options }) => {
+  const [isHovering, setIsHovering] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHovering(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovering(false);
+  };
+
+  return (
+    <div
+      className="flex flex-col items-center mb-8"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      {icon}
+      <h1
+        className={`text-slate-300 hover:text-gray-400 origin-left font-medium duration-300 ${
+          isHovering ? "scale-100" : "scale-0"
+        }`}
+      >
+        {title}
+      </h1>
+      {isHovering && (
+        <div className="absolute bg-white p-4 mt-2 ml-36 rounded border border-gray-200">
+          <ul>
+            {options.map((option, index) => (
+              <li key={index} className="bg-white w-44 hover:bg-greenish">{option}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+};
+
 const Sidebar = () => {
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(true);
+
   return (
     <div>
       <div
@@ -24,74 +62,45 @@ const Sidebar = () => {
           }`}
           onClick={() => setOpen(!open)}
         />
-        <div className="flex flex-col items-cente mb-8">
-          <TfiDashboard className=" text-4xl text-slate-300 hover:text-gray-400 cursor-pointer block float-left  ml-2" />
-          <h1
-            className={`text-slate-300  hover:text-gray-400 origin-left font-medium duration-300 ${
-              !open && "scale-0"
-            }`}
-          >
-            Admin
-          </h1>
-        </div>
-
-        <div className="flex flex-col items-cente mb-8">
-          <PiPerson className=" text-4xl text-slate-300 hover:text-gray-400 cursor-pointer block float-left  ml-2" />
-          <h1
-            className={`text-slate-300 hover:text-gray-400 origin-left font-medium duration-300 ${
-              !open && "scale-0"
-            }`}
-          >
-            Student
-          </h1>
-        </div>
-
-        <div className="flex flex-col items-cente mb-8">
-          <IoBookOutline className=" text-4xl text-slate-300 hover:text-gray-400 cursor-pointer block float-left  ml-2" />
-          <h1
-            className={`text-slate-300 hover:text-gray-400 origin-left font-medium duration-300 ${
-              !open && "scale-0"
-            }`}
-          >
-            Academic
-          </h1>
-        </div>
-
-        <div className="flex flex-col items-cente mb-8">
-          <TfiBag className=" text-4xl text-slate-300 hover:text-gray-400 cursor-pointer block float-left  ml-2" />
-          <h1
-            className={`text-slate-300 hover:text-gray-400 origin-left font-medium duration-300 ${
-              !open && "scale-0"
-            }`}
-          >
-            HR Admin
-          </h1>
-        </div>
-
-        <div className="flex flex-col items-cente mb-8">
-          <MdOutlineMoneyOffCsred className=" text-4xl text-slate-300 hover:text-gray-400 cursor-pointer block float-left  ml-2" />
-          <h1
-            className={`text-slate-300 hover:text-gray-400 origin-left font-medium duration-300 ${
-              !open && "scale-0"
-            }`}
-          >
-            Finance
-          </h1>
-        </div>
-
-        <div className="flex flex-col items-cente mb-8">
-          <HiOutlineDocumentChartBar className=" text-4xl text-slate-300 hover:text-gray-400 cursor-pointer block float-left ml-2" />
-          <h1
-            className={`text-slate-300 hover:text-gray-400 origin-left font-medium duration-300 ${
-              !open && "scale-0"
-            }`}
-          >
-            Reports
-          </h1>
-        </div>
+        {/* Usage of HoverMenu component */}
+        <HoverMenu
+          icon={
+            <PiPerson className="text-4xl text-slate-300 hover:text-gray-400 cursor-pointer block float-left ml-2" />
+          }
+          title="Student"
+          options={["Register Student", "Students List", "Past Students"]}
+        />
+        <HoverMenu
+          icon={
+            <IoBookOutline className="text-4xl text-slate-300 hover:text-gray-400 cursor-pointer block float-left ml-2" />
+          }
+          title="Academic"
+          options={["Register Student", "Students List", "Past Students"]}
+        />
+        <HoverMenu
+          icon={
+            <TfiBag className="text-4xl text-slate-300 hover:text-gray-400 cursor-pointer block float-left ml-2" />
+          }
+          title="HR Admin"
+          options={["Option 1", "Option 2", "Option 3"]}
+        />
+        <HoverMenu
+          icon={
+            <MdOutlineMoneyOffCsred className="text-4xl text-slate-300 hover:text-gray-400 cursor-pointer block float-left ml-2" />
+          }
+          title="Finance"
+          options={["Option 1", "Option 2", "Option 3"]}
+        />
+        <HoverMenu
+          icon={
+            <HiOutlineDocumentChartBar className="text-4xl text-slate-300 hover:text-gray-400 cursor-pointer block float-left ml-2" />
+          }
+          title="Reports"
+          options={["Option 1", "Option 2", "Option 3"]}
+        />
       </div>
     </div>
   );
-}
+};
 
-export default Sidebar
+export default Sidebar;
